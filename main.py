@@ -46,19 +46,19 @@ def is_short_link(token, url):
         'link': url,
         'v': '5.199'
     }
-
-    try:
-        response = requests.get(api_url, params=params)
-        response.raise_for_status()
-        vk_response = response.json()
-        return 'response' in vk_response and 'clicks' in vk_response['response']
-    except (requests.RequestException, ValueError, KeyError):
+    
+    response = requests.get(api_url, params=params)
+    response.raise_for_status()
+    vk_response = response.json()
+    if 'error' in vk_response:
         return False
+
+    return 'response' in vk_response and 'clicks' in vk_response['response']
 
 
 def main():
     load_dotenv()
-    vk_token = os.getenv('API_VK')
+    vk_token = os.environ('VK_TOKEN')
     user_url = input('Введите ссылку: ').strip()
 
     try:
@@ -79,3 +79,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
