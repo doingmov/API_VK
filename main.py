@@ -58,7 +58,7 @@ def is_short_link(token, url):
 
 def main():
     load_dotenv()
-    vk_token = os.getenv('VK_TOKEN')
+    vk_token = os.environ['VK_TOKEN']
     user_url = input('Введите ссылку: ').strip()
 
     try:
